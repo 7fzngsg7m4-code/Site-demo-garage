@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garage Cheval — Garage automobile depuis 2001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt:#232323;
+    --concrete:#edeae3;
+    --rust:#c1440e;
+    --steel:#5c6670;
+    --white:#fafaf8;
+    --line: rgba(35,35,35,0.14);
+    --line-strong: rgba(35,35,35,0.3);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--concrete);
+    color:var(--asphalt);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    line-height:1.1;
+    text-transform:none;
+    letter-spacing:0.005em;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 40px;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:20;
+    background:rgba(237,234,227,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 40px;max-width:1120px;margin:0 auto;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand svg{width:38px;height:38px;flex-shrink:0;}
+  .brand-text{font-family:'Oswald', sans-serif;font-size:1.2rem;font-weight:600;}
+  .brand-text small{display:block;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:500;color:var(--steel);letter-spacing:0.04em;}
+
+  nav.links{display:flex;gap:34px;font-size:0.94rem;}
+  nav.links a{color:var(--steel);border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color 0.2s, color 0.2s;}
+  nav.links a:hover, nav.links a:focus-visible{color:var(--asphalt);border-color:var(--rust);}
+
+  .nav-cta{background:var(--rust);color:var(--white);padding:10px 20px;font-size:0.9rem;border-radius:2px;transition:filter 0.2s;}
+  .nav-cta:hover, .nav-cta:focus-visible{filter:brightness(1.1);}
+
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+  .menu-toggle span{display:block;width:24px;height:2px;background:var(--asphalt);margin:5px 0;}
+
+  @media (max-width:760px){
+    .nav{padding:14px 24px;}
+    nav.links, .nav-cta{display:none;}
+    .menu-toggle{display:block;}
+    nav.links.open{
+      display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;
+      background:var(--concrete);padding:20px 24px 28px;border-bottom:1px solid var(--line);gap:18px;
+    }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;overflow:hidden;padding:100px 0 84px;border-bottom:1px solid var(--line);}
+  .hero::before{
+    content:"";position:absolute;top:-40px;right:-120px;width:520px;height:220px;
+    background:var(--rust);transform:rotate(-8deg);opacity:0.9;z-index:0;
+  }
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:end;}
+
+  .eyebrow-line{display:flex;align-items:center;gap:14px;margin-bottom:24px;color:var(--steel);font-size:0.94rem;}
+  .eyebrow-line .dash{width:32px;height:2px;background:var(--rust);}
+
+  .hero h1{font-size:clamp(2.2rem, 4.4vw, 3.4rem);max-width:15ch;color:var(--asphalt);}
+  .hero p.lede{margin-top:24px;max-width:44ch;color:var(--steel);font-size:1.06rem;}
+
+  .hero-actions{margin-top:36px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;}
+  .btn-primary{background:var(--asphalt);color:var(--white);padding:14px 26px;font-size:0.95rem;border-radius:2px;transition:background 0.2s;}
+  .btn-primary:hover, .btn-primary:focus-visible{background:var(--rust);}
+  .btn-ghost{color:var(--asphalt);font-size:0.95rem;border-bottom:1px solid var(--line-strong);padding-bottom:2px;}
+  .btn-ghost:hover{border-color:var(--asphalt);}
+
+  .hero-stat{border-left:1px solid var(--line-strong);padding-left:28px;position:relative;z-index:1;}
+  .hero-stat .num{font-family:'Oswald', sans-serif;font-size:2.9rem;font-weight:600;color:var(--rust);line-height:1;}
+  .hero-stat .cap{margin-top:10px;color:var(--steel);font-size:0.94rem;max-width:22ch;}
+
+  @media (max-width:760px){
+    .hero{padding:60px 0 52px;}
+    .hero::before{width:340px;height:150px;top:-20px;right:-100px;}
+    .hero-grid{grid-template-columns:1fr;gap:40px;}
+    .hero-stat{border-left:none;border-top:1px solid var(--line-strong);padding-left:0;padding-top:20px;}
+  }
+
+  /* ---------- Section shared ---------- */
+  section{padding:88px 0;border-bottom:1px solid var(--line);}
+  .section-head{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;margin-bottom:54px;}
+  .section-head h2{font-size:clamp(1.6rem, 2.8vw, 2.2rem);}
+  .section-head .desc{color:var(--steel);max-width:52ch;}
+  .section-num{color:var(--rust);font-size:0.9rem;margin-bottom:12px;display:block;font-family:'Oswald',sans-serif;}
+
+  @media (max-width:760px){
+    .section-head{grid-template-columns:1fr;gap:16px;}
+    section{padding:60px 0;}
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;align-items:start;}
+  .about-portrait{
+    aspect-ratio:4/5;background:linear-gradient(165deg, #2c2c2c, var(--asphalt) 65%);
+    border-radius:2px;position:relative;overflow:hidden;
+  }
+  .about-portrait::after{
+    content:"";position:absolute;inset:0;
+    background-image:repeating-linear-gradient(135deg, rgba(193,68,14,0.16) 0 2px, transparent 2px 26px);
+  }
+  .about-portrait .cap{position:absolute;left:22px;bottom:22px;color:var(--white);font-family:'Oswald', sans-serif;font-size:1.05rem;}
+  .about-portrait .cap small{display:block;font-family:'Inter', sans-serif;font-size:0.82rem;color:rgba(250,250,248,0.7);margin-top:4px;}
+
+  .about-copy p{color:var(--steel);margin-bottom:18px;max-width:56ch;}
+
+  .values{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);padding-top:28px;}
+  .values .value h4{font-family:'Inter', sans-serif;font-weight:600;font-size:0.95rem;margin-bottom:8px;}
+  .values .value p{font-size:0.9rem;color:var(--steel);max-width:26ch;}
+
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;gap:32px;}
+    .values{grid-template-columns:1fr;gap:18px;}
+  }
+
+  /* ---------- Services ---------- */
+  .service-row{display:grid;grid-template-columns:1.7fr 1fr;gap:32px;padding:32px 0;border-top:1px solid var(--line);align-items:baseline;}
+  .service-row:last-child{border-bottom:1px solid var(--line);}
+  .service-row h3{font-size:1.28rem;font-weight:600;}
+  .service-row p{color:var(--steel);font-size:0.96rem;}
+
+  @media (max-width:760px){
+    .service-row{grid-template-columns:1fr;gap:8px;padding:24px 0;}
+  }
+
+  /* ---------- Process ---------- */
+  .process{margin-top:66px;}
+  .process-list{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);}
+  .process-step{padding:28px 26px;border-right:1px solid var(--line);}
+  .process-step:last-child{border-right:none;}
+  .process-step .idx{font-family:'Oswald', sans-serif;color:var(--rust);font-size:1.5rem;font-weight:600;display:block;margin-bottom:12px;}
+  .process-step h4{font-family:'Inter', sans-serif;font-weight:600;font-size:1rem;margin-bottom:10px;}
+  .process-step p{color:var(--steel);font-size:0.9rem;}
+
+  @media (max-width:760px){
+    .process-list{grid-template-columns:1fr;}
+    .process-step{border-right:none;border-bottom:1px solid var(--line);}
+    .process-step:last-child{border-bottom:none;}
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;}
+  .contact-info .item{padding:20px 0;border-top:1px solid var(--line);}
+  .contact-info .item:last-child{border-bottom:1px solid var(--line);}
+  .contact-info .item h4{font-size:0.85rem;color:var(--steel);font-weight:500;margin-bottom:6px;}
+  .contact-info .item p{font-size:1.02rem;}
+  .contact-info .item a{border-bottom:1px solid var(--line-strong);}
+  .contact-info .item a:hover{border-color:var(--rust);color:var(--rust);}
+
+  form{display:flex;flex-direction:column;gap:20px;}
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field label{font-size:0.85rem;color:var(--steel);}
+  .field input, .field textarea{
+    background:transparent;border:none;border-bottom:1px solid var(--line-strong);
+    padding:10px 2px;font-family:'Inter', sans-serif;font-size:1rem;color:var(--asphalt);resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{outline:none;border-color:var(--rust);}
+  form .btn-primary{align-self:flex-start;border:none;cursor:pointer;margin-top:6px;}
+  .form-note{font-size:0.82rem;color:var(--steel);}
+
+  @media (max-width:760px){.contact-grid{grid-template-columns:1fr;gap:36px;}}
+
+  /* ---------- Footer ---------- */
+  footer{padding:34px 0;}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:0.85rem;color:var(--steel);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="48" fill="#232323"/>
+        <path d="M32 30 C32 45, 32 55, 40 68 C43 73, 57 73, 60 68 C68 55, 68 45, 68 30" stroke="#c1440e" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <circle cx="34" cy="27" r="4.5" fill="#c1440e"/>
+        <circle cx="66" cy="27" r="4.5" fill="#c1440e"/>
+        <rect x="45" y="46" width="10" height="26" fill="#fafaf8" transform="rotate(45 50 59)"/>
+        <circle cx="50" cy="46" r="7" fill="none" stroke="#fafaf8" stroke-width="4"/>
+      </svg>
+      <div class="brand-text">Garage Cheval<small>ATELIER MÉCANIQUE — DEPUIS 2001</small></div>
+    </div>
+    <nav class="links" id="navLinks">
+      <a href="#accueil">Accueil</a>
+      <a href="#apropos">À propos</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Prendre rendez-vous</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="accueil">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow-line"><span class="dash"></span>Garage automobile toutes marques</div>
+        <h1>Votre véhicule entre de bonnes mains, depuis 2001.</h1>
+        <p class="lede">Garage Cheval entretient et répare votre voiture avec un diagnostic précis et un devis clair avant chaque intervention. Un atelier familial, fondé par Manu Cheval, qui connaît ses clients par leur nom.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Prendre rendez-vous</a>
+          <a href="#services" class="btn-ghost">Voir nos prestations</a>
+        </div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">25 ans</div>
+        <p class="cap">d'entretien et de réparation automobile, toutes marques</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apropos">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num">À PROPOS</span><h2>Un garage familial, fondé par un passionné</h2></div>
+      <p class="desc">Manu Cheval a ouvert l'atelier en 2001. Depuis, la philosophie n'a pas changé : un travail soigné, des explications claires, et aucune réparation facturée sans accord préalable.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-portrait">
+        <div class="cap">Manu Cheval<small>Fondateur, mécanicien depuis plus de 25 ans</small></div>
+      </div>
+      <div class="about-copy">
+        <p>Passionné de mécanique depuis toujours, Manu Cheval a fondé le garage en 2001 pour proposer un service de proximité, honnête et accessible à tous les budgets. Aujourd'hui, l'atelier accueille particuliers et professionnels pour l'entretien courant comme pour les pannes les plus complexes.</p>
+        <p>Chaque véhicule est pris en charge avec le même sérieux, qu'il s'agisse d'une simple vidange ou d'une panne moteur difficile à diagnostiquer.</p>
+
+        <div class="values">
+          <div class="value">
+            <h4>Devis avant travaux</h4>
+            <p>Aucune réparation n'est engagée sans votre accord.</p>
+          </div>
+          <div class="value">
+            <h4>Toutes marques</h4>
+            <p>Véhicules essence, diesel et hybrides, françaises comme étrangères.</p>
+          </div>
+          <div class="value">
+            <h4>Rendez-vous rapide</h4>
+            <p>Un créneau sous quelques jours, dépannage possible en urgence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num">SERVICES</span><h2>Ce que nous faisons à l'atelier</h2></div>
+      <p class="desc">De l'entretien courant à la panne mécanique, l'ensemble des interventions se fait sur place.</p>
+    </div>
+
+    <div class="services-list">
+      <div class="service-row">
+        <h3>Entretien & révision</h3>
+        <p>Vidange, freins, courroie de distribution, filtres, contrôle multipoint avant les longs trajets(vacances).</p>
+      </div>
+      <div class="service-row">
+        <h3>Diagnostic & réparation mécanique</h3>
+        <p>Recherche de panne moteur, boîte de vitesses, électronique embarquée, avec valise de diagnostic.</p>
+      </div>
+      <div class="service-row">
+        <h3>Pneumatiques & géométrie</h3>
+        <p>Montage, équilibrage et réglage du parallélisme, toutes saisons.</p>
+      </div>
+      <div class="service-row">
+        <h3>Préparation au contrôle technique</h3>
+        <p>Vérification complète et mise en conformité avant le passage au contrôle technique.</p>
+      </div>
+    </div>
+
+    <div class="process">
+      <div class="section-head" style="margin-bottom:0;">
+        <div><span class="section-num">MÉTHODE</span><h2>Comment se passe une intervention</h2></div>
+        <p class="desc">Un déroulé simple, du premier appel à la restitution du véhicule.</p>
+      </div>
+      <div class="process-list">
+        <div class="process-step">
+          <span class="idx">01</span>
+          <h4>Prise de rendez-vous</h4>
+          <p>Par téléphone, on cale ensemble un créneau adapté à votre planning.</p>
+        </div>
+        <div class="process-step">
+          <span class="idx">02</span>
+          <h4>Diagnostic</h4>
+          <p>Inspection du véhicule et devis détaillé avant toute intervention.</p>
+        </div>
+        <div class="process-step">
+          <span class="idx">03</span>
+          <h4>Réparation & restitution</h4>
+          <p>Travaux réalisés une fois le devis validé, véhicule restitué propre et vérifié.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num">CONTACT</span><h2>Prendre rendez-vous</h2></div>
+      <p class="desc">Un appel ou un message suffit pour caler un créneau à l'atelier.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="item">
+          <h4>Téléphone</h4>
+          <p><a href="tel:0649276891">06 49 27 68 91</a></p>
+        </div>
+        <div class="item">
+          <h4>Email</h4>
+          <p><a href="mailto:kevin07.mk@gmail.com">kevin07.mk@gmail.com</a></p>
+        </div>
+        <div class="item">
+          <h4>Horaires</h4>
+          <p>Lundi – Samedi, 8h – 18h30</p>
+        </div>
+        <div class="item">
+          <h4>Atelier</h4>
+          <p>Adresse à confirmer</p>
+        </div>
+      </div>
+
+      <form id="contactForm">
+        <div class="field">
+          <label for="name">Nom et prénom</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="field">
+          <label for="vehicle">Véhicule (marque, modèle)</label>
+          <input type="text" id="vehicle" name="vehicle">
+        </div>
+        <div class="field">
+          <label for="phone">Téléphone</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="field">
+          <label for="message">Décrivez votre besoin</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Envoyer la demande</button>
+        <p class="form-note" id="formNote">Nous vous rappelons sous 24h ouvrées.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Garage Cheval. Tous droits réservés.</span>
+    <span>Garage automobile — fondé par Manu Cheval en 2001</span>
+  </div>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formNote').textContent = "Merci, votre demande a bien été envoyée. Nous vous rappelons sous 24h ouvrées.";
+    this.reset();
+  });
+</script>
+
+</body>
+</html>
